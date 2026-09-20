@@ -4,6 +4,8 @@ from collections.abc import Mapping, Sequence
 from copy import deepcopy
 from itertools import combinations
 
+from .winds import WINDS, Wind
+
 
 def validate_hand_value(player: str, value: int) -> None:
     # bool is an int subclass, but is not a hand value.
@@ -38,12 +40,41 @@ class MahjongGame:
         self._players = tuple(players)
         self._east_index = 0
         self._east_win_streak = 0
+        self._completed_rounds = 0
         self._totals = dict.fromkeys(self._players, 0)
         self._history: list[dict] = []
 
     @property
     def players(self) -> tuple[str, ...]:
         return self._players
+
+    @property
+    def initial_east(self) -> str:
+        return self.players[0]
+
+    @property
+    def seat_winds(self) -> dict[str, Wind]:
+        return {
+            player: WINDS[(index - self.east_index) % 4]
+            for index, player in enumerate(self.players)
+        }
+
+    @property
+    def round_wind(self) -> Wind:
+        """North remains the displayed Round Wind once the game is over."""
+        return WINDS[min(self._completed_rounds, 3)]
+
+    @property
+    def completed_rounds(self) -> int:
+        return self._completed_rounds
+
+    @property
+    def game_over(self) -> bool:
+        return self.completed_rounds == 4
+
+    def _require_active(self) -> None:
+        if self.game_over:
+            raise ValueError("The North Round is complete. Start a new game.")
 
     @property
     def east_index(self) -> int:
@@ -67,13 +98,14 @@ class MahjongGame:
 
     @property
     def round_number(self) -> int:
-        """Number of completed rounds (zero for a new game)."""
+        """Legacy name: number of recorded hands, including unsuccessful hands."""
         return len(self._history)
 
     def calculate_round(
         self, scores: Mapping[str, int], winner: str
     ) -> dict[str, int]:
         """Return net changes without changing game state."""
+        self._require_active()
         if not isinstance(scores, Mapping) or set(scores) != set(self.players):
             raise ValueError(
                 "Scores must be provided for exactly the four players."
@@ -121,8 +153,16 @@ class MahjongGame:
             next_index = (next_index + 1) % 4
             streak = 0
 
+        round_completed = next_index != self.east_index and next_index == 0
+        completed_rounds = self.completed_rounds + int(round_completed)
         entry = {
             "round": self.round_number + 1,
+            "kind": "settled",
+            "round_wind": self.round_wind,
+            "seat_winds": self.seat_winds,
+            "round_completed": round_completed,
+            "next_round_wind": WINDS[min(completed_rounds, 3)],
+            "game_over": completed_rounds == 4,
             "east": self.east,
             "winner": winner,
             "scores": dict(scores),
@@ -131,8 +171,38 @@ class MahjongGame:
             "next_east": self.players[next_index],
             "east_win_streak": streak,
         }
+        self._completed_rounds = completed_rounds
         self._totals = totals
         self._east_index = next_index
         self._east_win_streak = streak
+        self._history.append(entry)
+        return deepcopy(entry)
+
+    def restart_hand(self) -> dict:
+        """Record an unsuccessful hand; retain scores, Winds and East streak.
+
+        The table declares that fewer than eight tiles remain; this scorekeeper
+        does not simulate the wall or infer that condition from tile draws.
+        """
+        self._require_active()
+        _check_zero_sum(self._totals, "cumulative totals")
+        changes = dict.fromkeys(self.players, 0)
+        _check_zero_sum(changes, "round")
+        entry = {
+            "round": self.round_number + 1,
+            "kind": "restarted",
+            "round_wind": self.round_wind,
+            "seat_winds": self.seat_winds,
+            "round_completed": False,
+            "next_round_wind": self.round_wind,
+            "game_over": False,
+            "east": self.east,
+            "winner": None,
+            "scores": {},
+            "changes": changes,
+            "totals": self.totals,
+            "next_east": self.east,
+            "east_win_streak": self.east_win_streak,
+        }
         self._history.append(entry)
         return deepcopy(entry)

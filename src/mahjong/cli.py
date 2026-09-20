@@ -1,5 +1,7 @@
 """Small terminal interface; all settlement rules live in the engine."""
 
+from __future__ import annotations
+
 from .engine import MahjongGame, validate_hand_value
 
 
@@ -34,12 +36,17 @@ def get_score(player: str) -> int:
         return value
 
 
-def get_winner(players: tuple[str, ...]) -> str:
+def get_winner(players: tuple[str, ...]) -> str | None:
     for number, player in enumerate(players, 1):
         print(f"{number}. {player}")
     while True:
         try:
-            number = int(input("Who won? [1-4]: "))
+            answer = input(
+                "Who won? [1-4, r = unsuccessful/restart]: "
+            ).strip()
+            if answer.lower() == "r":
+                return None
+            number = int(answer)
             if 1 <= number <= 4:
                 return players[number - 1]
         except ValueError:
@@ -55,27 +62,45 @@ def show_scores(label: str, scores: dict[str, int]) -> None:
 
 
 def main() -> None:
-    print("CLASSICAL CHINESE MAHJONG CALCULATOR")
+    print("MAH JONG · SCORE CALCULATOR")
     print(
         "Press Ctrl-C or Ctrl-D to finish. Only completed rounds are counted."
     )
     game = None
     try:
         game = MahjongGame(get_players())
-        while True:
+        while not game.game_over:
             print(f"\nROUND {game.round_number + 1}")
             print(f"Current East: {game.east}")
+            print(f"Round Wind: {game.round_wind.value}")
+            print(
+                "Seats: "
+                + ", ".join(
+                    f"{p}: {w.value}" for p, w in game.seat_winds.items()
+                )
+            )
             print(f"East win streak: {game.east_win_streak}/4")
             scores = {player: get_score(player) for player in game.players}
             winner = get_winner(game.players)
             try:
-                result = game.play_round(scores, winner)
+                result = (
+                    game.restart_hand()
+                    if winner is None
+                    else game.play_round(scores, winner)
+                )
             except ValueError as error:
                 print(f"Invalid round: {error} Re-enter this round.")
                 continue
+            if winner is None:
+                print(
+                    "Unsuccessful hand restarted; scores and Winds unchanged."
+                )
             show_scores("ROUND CHANGES", result["changes"])
             show_scores("CUMULATIVE TOTALS", result["totals"])
             print(f"Next East: {game.east}")
+            if game.game_over:
+                print("North Round complete. Game over.")
+                break
             if input("Play another round? [Y/n]: ").strip().lower() in (
                 "n",
                 "no",

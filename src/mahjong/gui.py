@@ -11,10 +11,13 @@ from PySide6.QtGui import (
     QFont,
     QIcon,
     QKeySequence,
+    QPixmap,
 )
 from PySide6.QtWidgets import (
     QApplication,
     QButtonGroup,
+    QComboBox,
+    QDialog,
     QFileDialog,
     QFrame,
     QGridLayout,
@@ -26,11 +29,14 @@ from PySide6.QtWidgets import (
     QPushButton,
     QScrollArea,
     QStackedWidget,
+    QTextBrowser,
     QVBoxLayout,
     QWidget,
 )
 
+from .artwork import asset_path
 from .engine import MahjongGame
+from .rules import rules_text
 from .storage import load_game, save_game
 
 STYLE = """
@@ -96,7 +102,7 @@ class MahjongWindow(QMainWindow):
         self.game: MahjongGame | None = None
         self.save_path: Path | None = None
         self.dirty = False
-        self.setWindowTitle("MaJong · The scorekeeper")
+        self.setWindowTitle("Mah Jong · The scorekeeper")
         self.resize(1120, 800)
         self.setMinimumSize(880, 680)
         self.setStyleSheet(STYLE)
@@ -113,8 +119,18 @@ class MahjongWindow(QMainWindow):
         side = QVBoxLayout(sidebar)
         side.setContentsMargins(26, 34, 26, 28)
         side.setSpacing(15)
-        side.addWidget(label("麻  雀", "brand"))
-        side.addWidget(label("MaJong", "brand"))
+        self.banner = QLabel()
+        self.banner.setAccessibleName("Mah Jong banner")
+        self.banner.setPixmap(
+            QPixmap(str(asset_path("mah_jong_banner.png"))).scaled(
+                174,
+                150,
+                Qt.AspectRatioMode.KeepAspectRatio,
+                Qt.TransformationMode.SmoothTransformation,
+            )
+        )
+        side.addWidget(self.banner)
+        side.addWidget(label("Mah Jong", "brand"))
         side.addWidget(label("THE SCOREKEEPER", "eyebrow"))
         side.addSpacing(35)
         side.addWidget(button("＋  New game", self.new_game, "side"))
@@ -122,6 +138,8 @@ class MahjongWindow(QMainWindow):
         self.save_button = button("Save game…", self.save, "side")
         self.save_button.setEnabled(False)
         side.addWidget(self.save_button)
+        self.rules_button = button("Rules / Regeln", self.show_rules, "side")
+        side.addWidget(self.rules_button)
         side.addStretch()
         side.addWidget(label("Four seats.\nOne shared table.", wrap=True))
         side.addSpacing(10)
@@ -181,7 +199,8 @@ class MahjongWindow(QMainWindow):
         card.addWidget(label("Who’s playing?", "section"))
         card.addWidget(
             label(
-                "Enter your four players in their starting seat order.",
+                "After determining initial Winds at the table, enter players "
+                "in East/South/West/North order (counterclockwise).",
                 "subtitle",
                 True,
             )
@@ -193,6 +212,7 @@ class MahjongWindow(QMainWindow):
             title.setFixedWidth(110)
             row.addWidget(title)
             entry = QLineEdit()
+            entry.setMinimumHeight(44)
             entry.setPlaceholderText(f"{wind} player’s name")
             entry.setAccessibleName(f"{wind} player name")
             entry.returnPressed.connect(self.start_game)
@@ -248,7 +268,7 @@ class MahjongWindow(QMainWindow):
 
         card = self._card(page)
         row = QHBoxLayout()
-        row.addWidget(label("Settle this round", "section"))
+        row.addWidget(label("Settle this hand", "section"))
         row.addStretch()
         row.addWidget(label("Even values · Winner ≥ 22", "subtitle"))
         card.addLayout(row)
@@ -268,10 +288,12 @@ class MahjongWindow(QMainWindow):
             score = QLineEdit()
             score.setPlaceholderText("0")
             score.setMinimumWidth(90)
+            score.setMinimumHeight(44)
             score.returnPressed.connect(self.settle)
             self.score_inputs.append(score)
             grid.addWidget(score, index + 1, 1)
             won = QPushButton("Won")
+            won.setMinimumHeight(44)
             won.setObjectName("winner")
             won.setCheckable(True)
             won.setCursor(Qt.CursorShape.PointingHandCursor)
@@ -282,13 +304,24 @@ class MahjongWindow(QMainWindow):
         card.addLayout(grid)
         self.round_error = label("", "error", True)
         card.addWidget(self.round_error)
-        self.settle_button = button("Settle round  →", self.settle, "primary")
+        self.settle_button = button("Settle hand  →", self.settle, "primary")
         card.addWidget(self.settle_button)
+        self.restart_button = button(
+            "Unsuccessful hand — restart", self.restart_hand
+        )
+        card.addWidget(self.restart_button)
+        card.addWidget(
+            label(
+                "Fewer than 8 tiles remain: restart without changing scores or East.",
+                "subtitle",
+                True,
+            )
+        )
         self.result = label("", "result", True)
         self.result.hide()
         page.addWidget(self.result)
 
-        page.addWidget(label("Round history", "section"))
+        page.addWidget(label("Hand history", "section"))
         # Real buttons avoid synthesized table accessibility nodes on macOS.
         self.history_rows: list[QPushButton] = []
         self.history_group = QButtonGroup(self)
@@ -358,27 +391,83 @@ class MahjongWindow(QMainWindow):
         summary = "   ·   ".join(
             f"{p} {v:+d}" for p, v in result["changes"].items()
         )
-        self.result.setText(f"Round {result['round']} settled\n{summary}")
+        self.result.setText(f"Hand {result['round']} settled\n{summary}")
         self.result.show()
         self._reset_inputs()
         self.refresh()
         self.score_inputs[0].setFocus()
+
+    def restart_hand(self):
+        if self.game is None:
+            return
+        try:
+            self.game.restart_hand()
+        except (ValueError, RuntimeError) as error:
+            self.round_error.setText(str(error))
+            return
+        self.dirty = True
+        self._reset_inputs()
+        self.result.setText(
+            "Unsuccessful hand recorded. Scores and Winds unchanged."
+        )
+        self.result.show()
+        self.refresh()
+
+    def show_rules(self):
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Rules / Regeln")
+        dialog.resize(780, 700)
+        layout = QVBoxLayout(dialog)
+        language = QComboBox()
+        language.addItems(["English", "Deutsch"])
+        language.setAccessibleName("Rules language / Regelsprache")
+        layout.addWidget(language)
+        content = QTextBrowser()
+        content.setOpenExternalLinks(False)
+        layout.addWidget(content)
+
+        def display_rules(index: int):
+            try:
+                content.setMarkdown(rules_text("en" if index == 0 else "de"))
+            except (OSError, ValueError) as error:
+                content.setPlainText(f"Could not load rules: {error}")
+
+        language.currentIndexChanged.connect(display_rules)
+        display_rules(0)
+        dialog.exec()
+        dialog.deleteLater()
 
     def refresh(self):
         if self.game is None:
             return
         game = self.game
         self.save_button.setEnabled(True)
-        self.round_title.setText(f"Round {game.round_number + 1}")
+        self.round_title.setText(
+            "Game complete"
+            if game.game_over
+            else f"Hand {game.round_number + 1}"
+        )
+        self.settle_button.setEnabled(not game.game_over)
+        self.restart_button.setEnabled(not game.game_over)
+        for field in self.score_inputs:
+            field.setEnabled(not game.game_over)
+        for won in self.winners.buttons():
+            won.setEnabled(not game.game_over)
         self.east_label.setText(f"EAST   {game.east}")
         self.streak_label.setText(
+            f"{game.round_wind.value} Round  ·  "
             f"{game.east} is East  ·  {game.east_win_streak} of 4 consecutive wins"
+            + (
+                "  ·  North circuit complete — start a new game."
+                if game.game_over
+                else ""
+            )
         )
         for i, player in enumerate(game.players):
             self.total_names[i].setText(player)
             self.total_values[i].setText(f"{game.totals[player]:+d}")
             self.player_labels[i].setText(
-                player + ("  ·  East" if player == game.east else "")
+                f"{player}  ·  {game.seat_winds[player].value}"
             )
             self.score_inputs[i].setAccessibleName(f"Hand value for {player}")
             self.winners.button(i).setAccessibleName(f"{player} won")
@@ -395,8 +484,14 @@ class MahjongWindow(QMainWindow):
             changes = "   ·   ".join(
                 f"{p} {entry['changes'][p]:+d}" for p in game.players
             )
+            outcome = (
+                "Unsuccessful — restarted"
+                if entry["kind"] == "restarted"
+                else f"{entry['winner']} won"
+            )
             text = (
-                f"Round {entry['round']}  ·  {entry['winner']} won"
+                f"Hand {entry['round']}  ·  {entry['round_wind'].value} Round"
+                f"  ·  {outcome}"
                 f"  ·  Next East: {entry['next_east']}\n{changes}"
             )
             item_button = button(
@@ -425,8 +520,13 @@ class MahjongWindow(QMainWindow):
         hands = " · ".join(f"{p}: {v}" for p, v in entry["scores"].items())
         totals = " · ".join(f"{p}: {v:+d}" for p, v in entry["totals"].items())
         self.detail.setText(
-            f"Round {entry['round']} · East: {entry['east']} · Winner: {entry['winner']}\n"
-            f"Hand values — {hands}\nTotals after round — {totals}"
+            f"Hand {entry['round']} · {entry['round_wind'].value} Round · East: {entry['east']}\n"
+            + (
+                "Unsuccessful hand — restarted\n"
+                if entry["winner"] is None
+                else f"Winner: {entry['winner']}\n"
+            )
+            + f"Hand values — {hands}\nTotals after round — {totals}"
         )
 
     def save(self) -> bool:
@@ -434,9 +534,9 @@ class MahjongWindow(QMainWindow):
             return False
         filename, _ = QFileDialog.getSaveFileName(
             self,
-            "Save MaJong game",
+            "Save Mah Jong game",
             str(self.save_path or "My game.majong.json"),
-            "MaJong game (*.json)",
+            "Mah Jong game (*.json)",
         )
         if not filename:
             return False
@@ -481,7 +581,7 @@ class MahjongWindow(QMainWindow):
 
     def open_game(self):
         filename, _ = QFileDialog.getOpenFileName(
-            self, "Open MaJong game", "", "MaJong game (*.json)"
+            self, "Open Mah Jong game", "", "Mah Jong game (*.json)"
         )
         if not filename:
             return
@@ -509,11 +609,9 @@ class MahjongWindow(QMainWindow):
 
 def main() -> int:
     app = cast(QApplication, QApplication.instance() or QApplication(sys.argv))
-    app.setWindowIcon(
-        QIcon(str(Path(__file__).parent / "assets" / "icon.svg"))
-    )
-    app.setApplicationName("MaJong")
-    app.setOrganizationName("MaJong")
+    app.setWindowIcon(QIcon(str(asset_path("mah_jong_icon.png"))))
+    app.setApplicationName("Mah Jong")
+    app.setOrganizationName("Mah Jong")
     app.setFont(QFont("Arial", 13))
     window = MahjongWindow()
     window.show()

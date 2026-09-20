@@ -9,7 +9,10 @@ a = Analysis(
     [str(root / "packaging" / "desktop_entry.py")],
     pathex=[str(root / "src")],
     datas=[(str(root / "src" / "mahjong" / "assets"), "mahjong/assets"),
+           (str(root / "assets" / "mah_jong_banner.png"), "mahjong/assets"),
+           (str(root / "assets" / "mah_jong_icon.png"), "mahjong/assets"),
            (str(root / "SPEC.md"), "."),
+           (str(root / "RULES.md"), "mahjong"),
            (str(root / "THIRD_PARTY_NOTICES.md"), ".")]
            + copy_metadata("PySide6") + copy_metadata("PySide6_Essentials")
            + copy_metadata("shiboken6"),
@@ -18,14 +21,15 @@ a = Analysis(
 )
 pyz = PYZ(a.pure)
 exe = EXE(
-    pyz, a.scripts, [], exclude_binaries=True, name="MaJong",
+    pyz, a.scripts, [], exclude_binaries=True, name="Mah Jong",
     console=False, icon=str(icon),
 )
-collection = COLLECT(exe, a.binaries, a.datas, name="MaJong")
+collection = COLLECT(exe, a.binaries, a.datas, name="Mah Jong")
 if sys.platform == "darwin":
     app = BUNDLE(
-        collection, name="MaJong.app", icon=str(icon),
+        collection, name="Mah Jong.app", icon=str(icon),
         bundle_identifier="io.github.gregorlauter.majong",
         info_plist={"CFBundleShortVersionString": "0.1.0",
+                    "CFBundleDisplayName": "Mah Jong",
                     "NSHighResolutionCapable": True},
     )

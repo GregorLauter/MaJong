@@ -1,4 +1,4 @@
-"""Traditional Chinese Classical Mahjong settlement calculator."""
+"""Traditional Chinese Classical Mah Jong settlement calculator."""
 
 from .engine import MahjongGame
 

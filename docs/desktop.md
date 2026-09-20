@@ -1,7 +1,8 @@
 # Desktop application
 
-MaJong is a local, offline application. It needs no browser, server, login, or
-connection to another project. All scoring runs through `mahjong.engine`.
+Mah Jong is a local, offline application. It needs no browser, server, login, or
+connection to another project. Settlement runs through `mahjong.engine`; structured hand scoring lives
+separately in `mahjong.scoring`. The GUI currently accepts final hand values.
 
 ## Start from this source checkout
 
@@ -30,8 +31,13 @@ with `.venv\Scripts\Activate.ps1`, then use the same pip installation and
 1. Enter four names in initial East/South/West/North order.
 2. Enter all four hand values (including an explicit `0` where appropriate).
 3. Select the winner using their **Won** button.
-4. Click **Settle round**. Totals, East, streak, and history update together.
+4. Click **Settle hand**. Totals, seat Winds, Round Wind, East streak and history
+   update together.
 5. Select a history row to see its entered values and cumulative totals.
+6. For an unsuccessful hand (fewer than eight tiles left), use **Unsuccessful
+   hand — restart**. No values or winner need to be entered; scores and Winds stay.
+7. The game ends when East completes the North circuit. Start a new game to play again.
+8. Open **Rules / Regeln** and switch between English and Deutsch at any time.
 
 Invalid input stays on screen for correction; no partial round is committed.
 After settlement the entry fields clear, preventing an accidental second click
@@ -53,9 +59,9 @@ The output contains Python and Qt, so the receiving laptop does not need Python:
 
 | Build system | Output | How to use |
 | --- | --- | --- |
-| macOS | `dist/MaJong.app` | Double-click; optionally drag to Applications yourself. |
-| Windows | `dist/MaJong/MaJong.exe` | Keep the entire MaJong folder together; open the executable. |
-| Linux | `dist/MaJong/MaJong` | Keep the entire MaJong folder together; run the executable. |
+| macOS | `dist/Mah Jong.app` | Double-click; optionally drag to Applications yourself. |
+| Windows | `dist/Mah Jong/Mah Jong.exe` | Keep the entire Mah Jong folder together; open the executable. |
+| Linux | `dist/Mah Jong/Mah Jong` | Keep the entire Mah Jong folder together; run the executable. |
 
 Build on the OS and architecture you intend to distribute to. A Mac build is
 not a Windows executable. The GitHub **Desktop packages** workflow builds

@@ -12,7 +12,7 @@ def save_game(game: MahjongGame, path: Path) -> None:
     """Atomically save completed rounds; never write partial round inputs."""
     payload = {
         "format": "majong-game",
-        "version": 1,
+        "version": 2,
         "players": list(game.players),
         "rounds": [
             {"scores": r["scores"], "winner": r["winner"]}
@@ -38,14 +38,14 @@ def load_game(path: Path) -> MahjongGame:
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, UnicodeError) as error:
-        raise ValueError("This is not a valid MaJong game file.") from error
+        raise ValueError("This is not a valid Mah Jong game file.") from error
     if (
         not isinstance(payload, dict)
         or payload.get("format") != "majong-game"
         or type(payload.get("version")) is not int
-        or payload["version"] != 1
+        or payload["version"] not in (1, 2)
     ):
-        raise ValueError("Unsupported MaJong game file format or version.")
+        raise ValueError("Unsupported Mah Jong game file format or version.")
     players = payload.get("players")
     rounds = payload.get("rounds")
     if not isinstance(players, list) or not isinstance(rounds, list):
@@ -55,7 +55,12 @@ def load_game(path: Path) -> MahjongGame:
         if not isinstance(entry, dict) or set(entry) != {"scores", "winner"}:
             raise ValueError(f"Invalid data for round {number}.")
         try:
-            game.play_round(entry["scores"], entry["winner"])
+            if payload["version"] == 2 and entry["winner"] is None:
+                if entry["scores"] != {}:
+                    raise ValueError("An unsuccessful hand has no scores.")
+                game.restart_hand()
+            else:
+                game.play_round(entry["scores"], entry["winner"])
         except ValueError as error:
             raise ValueError(f"Invalid round {number}: {error}") from error
     return game

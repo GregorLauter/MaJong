@@ -148,6 +148,23 @@ class CliTests(unittest.TestCase):
                 ]:
                     self.assertIn(text, result.stdout)
 
+    def test_restart_and_game_completion(self):
+        output = self.run_cli(
+            ["A", "B", "C", "D", "0", "0", "0", "0", "r", "n"]
+        )
+        self.assertIn("Unsuccessful hand restarted", output)
+        self.assertIn("Current East: A", output)
+        self.assertIn("Round Wind: East", output)
+        inputs = list("ABCD")
+        for hand in range(16):
+            inputs.extend(["22"] * 4 + [str((hand + 1) % 4 + 1)])
+            if hand < 15:
+                inputs.append("")
+        output = self.run_cli(inputs)
+        self.assertIn("Round Wind: North", output)
+        self.assertIn("North Round complete. Game over.", output)
+        self.assertNotIn("ROUND 17", output)
+
 
 if __name__ == "__main__":
     unittest.main()

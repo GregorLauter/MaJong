@@ -26,7 +26,7 @@ fix:
 play:
     uv run --locked --extra desktop majong-desktop
 
-# Play in the terminal.
+# Open the terminal calculator.
 cli:
     uv run --locked majong
 
@@ -37,3 +37,7 @@ build:
 # Bundle a standalone app for this operating system.
 desktop-build:
     uv run --locked --extra desktop pyinstaller --noconfirm packaging/majong.spec
+
+# Export the bilingual rulebook using the existing Qt dependency.
+rules-pdf:
+    uv run --locked --extra desktop python tools/export_rules_pdf.py

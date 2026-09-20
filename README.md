@@ -1,115 +1,129 @@
-# MaJong
+<p align="center"><img src="assets/mah_jong_banner.png" width="580" alt="Mah Jong banner"></p>
 
-An offline desktop scorekeeper for four-player Chinese Classical Mahjong.
-Enter your hand values, choose the winner, and let MaJong settle the table.
+# Mah Jong
 
-A standalone project, with its own source code, Git history, environment, and
-builds. It does not connect to or modify any other project.
+An offline score calculator and settlement tracker for four players, using our
+traditional Chinese Mah Jong rules. Enter hand values; the app keeps the totals.
 
-## Desktop app
+**[Deutsch weiter unten ↓](#deutsch)**
 
-- A clean forest-green and ivory interface.
-- Four-player setup in East/South/West/North order.
-- Round settlement, cumulative scores, and automatic East rotation.
-- Selectable round history with original hand values and totals.
-- Save and reopen games as portable local JSON files.
-- Clear validation errors and prompts before discarding an unsaved game.
-- No server, account, or internet connection needed to play.
+## Download Mah Jong
 
-All rules come from [SPEC.md](SPEC.md). The app settles values entered by the
-players; it does not evaluate tiles. The engine remains independent of Qt.
+**Version 0.1.0 · Desktop test release**
 
-## Run locally
+| Your computer | Download |
+| --- | --- |
+| Windows · 64-bit Intel/AMD | [Download for Windows](https://github.com/GregorLauter/MaJong/releases/download/v0.1.0/Mah-Jong-Windows-x64.zip) |
+| macOS 13+ · Apple Silicon (M1 or newer) | [Download for Mac](https://github.com/GregorLauter/MaJong/releases/download/v0.1.0/Mah-Jong-macOS-arm64.zip) |
+| Linux · 64-bit Intel/AMD · Ubuntu 24.04 build | [Download for Linux](https://github.com/GregorLauter/MaJong/releases/download/v0.1.0/Mah-Jong-Linux-x64.tar.gz) |
 
-With `uv` and `just` installed, from this folder:
+Download, extract the archive, then open **Mah Jong**. No Python or terminal is
+needed for the Windows/Mac bundles. Linux compatibility depends on your system.
+[Opening instructions](docs/downloads.md) · [All releases](https://github.com/GregorLauter/MaJong/releases)
 
-```sh
-just setup
-just play
-```
+These are test app bundles, not signed installers. macOS/Windows may block or
+warn about the unverified publisher. The Mac download does not support Intel Macs.
 
-Without `just`:
+**[Bilingual rulebook PDF — English first, German below](output/pdf/Mah-Jong-rules.pdf)**
+· [Read the rules online](RULES.md)
+
+### Using the calculator
+
+1. Enter four names in initial East/South/West/North order.
+2. Enter four hand values and select the winner, then click **Settle hand**.
+3. See payments, cumulative totals, seat/Round Winds and hand history.
+4. Use **Save game** to continue later, or **Rules / Regeln** for the rulebook.
+
+East rotates automatically. Unsuccessful hands can be recorded without changing
+scores or East. Everything stays on your laptop. This is a calculator for your
+physical table game, not a playable simulator.
+
+<details>
+<summary>Development, tests and builds</summary>
+
+With Python 3.12 and `uv`, from the project folder:
 
 ```sh
 uv sync --locked --extra desktop --dev
 uv run --locked --extra desktop majong-desktop
+uv run --locked --extra desktop pytest
 ```
 
-Or use a standard Python virtual environment:
+`just check` runs lint, formatting, types and tests. `just desktop-build` builds
+for the current operating system. The existing GitHub workflow builds all three
+platforms separately. Publishing requires the manually selected release option.
+
+[Development/API](docs/development.md) · [Platform builds](docs/desktop.md)
+· [Release preparation](docs/release.md)
+
+`src/mahjong/` contains the independent scoring/settlement engine and interfaces;
+`tests/` contains the automated suite. [SPEC.md](SPEC.md) defines settlement
+requirements; [RULES.md](RULES.md) defines our bilingual rulebook.
+
+</details>
+
+---
+
+## Deutsch
+
+Mah Jong ist ein Offline-Punkterechner und Abrechnungshelfer für vier Spieler
+nach unseren traditionellen chinesischen Mah Jong-Regeln. Handwerte eingeben;
+die App führt die Gesamtstände.
+
+### Mah Jong herunterladen
+
+**Version 0.1.0 · Desktop-Testversion**
+
+| Dein Computer | Download |
+| --- | --- |
+| Windows · 64-Bit Intel/AMD | [Für Windows herunterladen](https://github.com/GregorLauter/MaJong/releases/download/v0.1.0/Mah-Jong-Windows-x64.zip) |
+| macOS 13+ · Apple Silicon (M1 oder neuer) | [Für Mac herunterladen](https://github.com/GregorLauter/MaJong/releases/download/v0.1.0/Mah-Jong-macOS-arm64.zip) |
+| Linux · 64-Bit Intel/AMD · Ubuntu-24.04-Build | [Für Linux herunterladen](https://github.com/GregorLauter/MaJong/releases/download/v0.1.0/Mah-Jong-Linux-x64.tar.gz) |
+
+Herunterladen, Archiv entpacken und **Mah Jong** öffnen. Die Windows-/Mac-Pakete
+benötigen weder Python noch Terminalkenntnisse. Unter Linux hängt die
+Kompatibilität vom System ab. [Anleitung](docs/downloads.md#deutsch)
+· [Alle Releases](https://github.com/GregorLauter/MaJong/releases)
+
+Dies sind Testpakete, keine signierten Installer. macOS/Windows können wegen des
+ungeprüften Herausgebers warnen oder das Öffnen blockieren. Der Mac-Download
+unterstützt keine Intel-Macs.
+
+**[Zweisprachiges Regel-PDF — Englisch zuerst, Deutsch darunter](output/pdf/Mah-Jong-rules.pdf)**
+· [Regeln online lesen](RULES.md)
+
+### Den Rechner verwenden
+
+1. Vier Namen in anfänglicher Ost/Süd/West/Nord-Reihenfolge eingeben.
+2. Vier Handwerte und den Gewinner auswählen, dann **Settle hand** anklicken.
+3. Zahlungen, Gesamtstände, Sitz-/Rundenwinde und Verlauf ansehen.
+4. Mit **Save game** speichern; **Rules / Regeln** öffnet das Regelwerk.
+
+Ost wandert automatisch weiter. Erfolglose Hände lassen Punkte und Ost unverändert.
+Alles bleibt auf deinem Laptop. Die App rechnet euer Spiel am echten Tisch ab;
+sie ist kein spielbarer Simulator.
+
+<details>
+<summary>Entwicklung, Tests und Builds</summary>
+
+Mit Python 3.12 und `uv` im Projektordner:
 
 ```sh
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -e '.[desktop]'
-majong-desktop
+uv sync --locked --extra desktop --dev
+uv run --locked --extra desktop majong-desktop
+uv run --locked --extra desktop pytest
 ```
 
-Python 3.12 is recommended for desktop development. The engine supports Python
-3.9+ with no runtime dependencies; the desktop extra installs PySide6.
-Windows setup and game instructions are in [the desktop guide](docs/desktop.md).
+`just check` prüft Stil, Formatierung, Typen und Tests. `just desktop-build`
+erstellt ein Paket für das aktuelle Betriebssystem. Der vorhandene GitHub-Workflow
+baut die drei Plattformen getrennt. Veröffentlicht wird nur über die manuell
+ausgewählte Release-Option.
 
-For the terminal interface, run `just cli`. After installation, `majong`,
-`python -m mahjong`, and `python majong.py` are also supported.
+[Entwicklung/API](docs/development.md) · [Plattform-Builds](docs/desktop.md)
+· [Release-Vorbereitung](docs/release.md) (Englisch)
 
-## Checks and builds
+`src/mahjong/` enthält die unabhängigen Berechnungen und Oberflächen; `tests/`
+enthält die Tests. [SPEC.md](SPEC.md) definiert die Abrechnung;
+[RULES.md](RULES.md) enthält das zweisprachige Regelwerk.
 
-```sh
-just check          # Ruff lint + formatting, mypy, tests and coverage
-just test           # Tests only
-just fix            # Format and apply safe lint fixes
-just build          # Python wheel and source archive
-just desktop-build  # Standalone desktop app for this OS
-```
-
-The standalone Mac output is `dist/MaJong.app`. Windows and Linux builds produce
-an executable and supporting files inside `dist/MaJong/`. Build on each target
-OS; receiving laptops do not need Python installed. The initial bundles are
-unsigned development builds, not notarized public release installers.
-
-GitHub Actions checks pushes and pull requests. The manually dispatched
-**Desktop packages** workflow tests and builds Mac ARM64, Windows x64, and Linux
-x64 packages. Platform coverage is documented in [the desktop guide](docs/desktop.md).
-
-## Project layout
-
-```text
-src/mahjong/
-  engine.py        # Rules, settlement, game state, invariants
-  storage.py       # Atomic saves and validation by replaying rounds
-  gui.py           # Qt desktop interface
-  cli.py           # Terminal interface
-  assets/          # App icon
-  __init__.py
-  __main__.py
-tests/             # Engine, CLI, storage, and real Qt widget tests
-packaging/         # Standalone app build specification and icons
-.github/workflows/ # Tests and desktop package builds
-docs/              # Development and installation guides
-SPEC.md            # Authoritative rules
-pyproject.toml     # Package metadata and tool configuration
-uv.lock            # Locked dependencies
-justfile           # Development commands
-```
-
-## Engine API
-
-```python
-from mahjong import MahjongGame
-
-game = MahjongGame(['A', 'B', 'C', 'D'])
-result = game.play_round({'A': 12, 'B': 24, 'C': 8, 'D': 4}, winner='B')
-assert result['changes'] == {'A': -24, 'B': 96, 'C': -28, 'D': -44}
-assert game.east == 'B'
-```
-
-`calculate_round(scores, winner)` previews changes without committing a round.
-`play_round(scores, winner)` validates, verifies round and cumulative zero-sum
-invariants, updates East, and returns a history entry. Invalid inputs raise
-`ValueError`; invariant failures raise `RuntimeError`. Failed rounds never commit.
-
-`players`, `east`, `east_index`, `east_win_streak`, and `round_number` are read-only
-properties. `round_number` counts completed rounds. `totals` and `history` return
-independent snapshots. History entries contain `round`, `east`, `winner`,
-`scores`, `changes`, `totals`, `next_east`, and the following `east_win_streak`.
-
-See [development](docs/development.md) and [third-party notices](THIRD_PARTY_NOTICES.md).
+</details>

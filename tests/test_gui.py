@@ -12,7 +12,13 @@ try:
     from PySide6.QtCore import Qt
     from PySide6.QtGui import QCloseEvent
     from PySide6.QtTest import QTest
-    from PySide6.QtWidgets import QApplication, QMessageBox
+    from PySide6.QtWidgets import (
+        QApplication,
+        QComboBox,
+        QDialog,
+        QMessageBox,
+        QTextBrowser,
+    )
 
     from mahjong.gui import MahjongWindow
 except ImportError:
@@ -62,6 +68,10 @@ class GuiTests(unittest.TestCase):
         QTest.mouseClick(self.window.settle_button, Qt.MouseButton.LeftButton)
 
     def test_setup_validation_and_reference(self):
+        self.assertEqual(
+            self.window.windowTitle(), "Mah Jong · The scorekeeper"
+        )
+        self.assertFalse(self.window.banner.pixmap().isNull())
         QTest.mouseClick(self.window.start_button, Qt.MouseButton.LeftButton)
         self.assertIn("non-empty", self.window.setup_error.text())
         self.start()
@@ -71,7 +81,7 @@ class GuiTests(unittest.TestCase):
             dict(A=-24, B=96, C=-28, D=-44),
         )
         self.assertEqual(cast(MahjongGame, self.window.game).east, "B")
-        self.assertEqual(self.window.round_title.text(), "Round 2")
+        self.assertEqual(self.window.round_title.text(), "Hand 2")
         self.assertEqual(
             [v.text() for v in self.window.total_values],
             ["-24", "+96", "-28", "-44"],
@@ -109,7 +119,7 @@ class GuiTests(unittest.TestCase):
         self.assertEqual(cast(MahjongGame, self.window.game).east, "B")
         self.assertIn("0 of 4", self.window.streak_label.text())
         self.window.history_rows[0].click()
-        self.assertIn("Round 1", self.window.detail.text())
+        self.assertIn("Hand 1", self.window.detail.text())
         self.assertIn("East: A", self.window.detail.text())
 
     def test_save_and_reopen(self):
@@ -236,3 +246,55 @@ class GuiTests(unittest.TestCase):
             self.window.total_names[0].textFormat(), Qt.TextFormat.PlainText
         )
         self.assertEqual(self.window.total_names[0].text(), "<b>A</b>")
+
+    def test_restart_and_complete_game_ui(self):
+        self.window.restart_hand()  # No game yet.
+        self.start()
+        game = cast(MahjongGame, self.window.game)
+        self.enter_round(("22", "0", "0", "0"), winner=0)
+        before = game.totals
+        self.window.restart_button.click()
+        self.assertEqual(game.totals, before)
+        self.assertEqual(game.east_win_streak, 1)
+        self.assertIn("Unsuccessful", self.window.history_rows[-1].text())
+        self.assertIn("Unsuccessful", self.window.detail.text())
+        self.assertIn("East Round", self.window.streak_label.text())
+        for _ in range(16):
+            game.play_round(
+                dict.fromkeys("ABCD", 22),
+                game.players[(game.east_index + 1) % 4],
+            )
+        self.window.refresh()
+        self.assertEqual(self.window.round_title.text(), "Game complete")
+        self.assertIn("North", self.window.streak_label.text())
+        self.assertFalse(self.window.settle_button.isEnabled())
+        self.assertFalse(self.window.restart_button.isEnabled())
+        self.window.restart_hand()
+        self.assertIn("North Round", self.window.round_error.text())
+        self.window.dirty = False
+        self.window.new_game()
+        self.start()
+        self.assertTrue(self.window.settle_button.isEnabled())
+        self.assertTrue(self.window.restart_button.isEnabled())
+        self.assertTrue(
+            all(field.isEnabled() for field in self.window.score_inputs)
+        )
+
+    def test_rules_dialog_switches_language_and_handles_missing_resource(self):
+        def inspect_dialog(dialog):
+            language = dialog.findChild(QComboBox)
+            content = dialog.findChild(QTextBrowser)
+            self.assertIn("Scope", content.toPlainText())
+            self.assertNotIn("Maßgebliche Regeln", content.toPlainText())
+            language.setCurrentIndex(1)
+            self.assertIn("Maßgebliche Regeln", content.toPlainText())
+            self.assertNotIn("Scope", content.toPlainText())
+            with patch(
+                "mahjong.gui.rules_text", side_effect=OSError("missing file")
+            ):
+                language.setCurrentIndex(0)
+                self.assertIn("Could not load rules", content.toPlainText())
+            return 0
+
+        with patch.object(QDialog, "exec", new=inspect_dialog):
+            self.window.rules_button.click()

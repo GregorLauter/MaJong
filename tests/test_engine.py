@@ -3,6 +3,7 @@ import unittest
 from unittest.mock import patch
 
 from mahjong import MahjongGame
+from mahjong.winds import Wind
 
 
 class EngineTests(unittest.TestCase):
@@ -157,6 +158,12 @@ class EngineTests(unittest.TestCase):
             first,
             dict(
                 round=1,
+                kind="settled",
+                round_wind=Wind.EAST,
+                seat_winds=dict(zip("ABCD", Wind)),
+                round_completed=False,
+                next_round_wind=Wind.EAST,
+                game_over=False,
                 east="A",
                 winner="B",
                 scores=self.scores,
@@ -209,6 +216,9 @@ class EngineTests(unittest.TestCase):
         rng = random.Random(42)
         expected_totals = dict.fromkeys("ABCD", 0)
         for _ in range(1000):
+            if self.game.game_over:
+                self.game = MahjongGame(list("ABCD"))
+                expected_totals = dict.fromkeys("ABCD", 0)
             scores = {p: 2 * rng.randrange(100) for p in "ABCD"}
             winner = rng.choice(self.game.players)
             scores[winner] = max(22, scores[winner])

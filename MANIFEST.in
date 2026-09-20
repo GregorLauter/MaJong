@@ -10,3 +10,10 @@ recursive-include .github *.yaml
 include THIRD_PARTY_NOTICES.md
 recursive-include packaging *.py *.spec *.icns *.ico
 recursive-include src/mahjong/assets *.svg
+
+include RULES.md
+include setup.py
+include assets/mah_jong_banner.png
+include assets/mah_jong_icon.png
+include tools/export_rules_pdf.py
+include output/pdf/Mah-Jong-rules.pdf

@@ -1,12 +1,12 @@
-# Ma Jong Calculator - Project Specification
+# Mah Jong Calculator - Project Specification
 
 ## 1. Project Goal
 
 This project implements a score settlement calculator for four-player
-traditional Chinese Classical Mahjong.
+traditional Chinese Classical Mah Jong.
 
-The program does **not**: - play Mahjong; - recognize or evaluate
-tiles; - determine the hand value from a Mahjong hand; - decide whether
+The program does **not**: - play Mah Jong; - recognize or evaluate
+tiles; - determine the hand value from a Mah Jong hand; - decide whether
 a hand is legal.
 
 The players calculate each player's hand value themselves. The program
@@ -22,7 +22,7 @@ Development is divided into three phases:
 Phase 2 is implemented and tested. As requested on 2026-09-20, the next
 phase is a standalone desktop application for macOS, Windows, and Linux.
 A website is not part of the current plan. This changes the delivery
-format only; all Mahjong rules below remain unchanged.
+format only; all Mah Jong rules below remain unchanged.
 
 ## 2. Players and Seating
 
@@ -385,5 +385,5 @@ modify or depend on any other user project.
 This file is the current project specification.
 
 If implementation behavior conflicts with this document, do not silently
-guess. Flag the conflict and clarify the Mahjong rule before changing
+guess. Flag the conflict and clarify the Mah Jong rule before changing
 the calculation semantics.
