@@ -22,7 +22,9 @@ needed for the Windows/Mac bundles. Linux compatibility depends on your system.
 [Opening instructions](docs/downloads.md) · [All releases](https://github.com/GregorLauter/MaJong/releases)
 
 These are test app bundles, not signed installers. macOS/Windows may block or
-warn about the unverified publisher. The Mac download does not support Intel Macs.
+warn about the unverified publisher. **Mac blocked? Follow the
+[Open Anyway steps](docs/downloads.md#if-macos-says-apple-could-not-verify-mah-jong).**
+The Mac download does not support Intel Macs.
 
 **[Bilingual rulebook PDF — English first, German below](output/pdf/Mah-Jong-rules.pdf)**
 · [Read the rules online](RULES.md)
@@ -86,8 +88,9 @@ Kompatibilität vom System ab. [Anleitung](docs/downloads.md#deutsch)
 · [Alle Releases](https://github.com/GregorLauter/MaJong/releases)
 
 Dies sind Testpakete, keine signierten Installer. macOS/Windows können wegen des
-ungeprüften Herausgebers warnen oder das Öffnen blockieren. Der Mac-Download
-unterstützt keine Intel-Macs.
+ungeprüften Herausgebers warnen oder das Öffnen blockieren. **Mac blockiert?
+[Anleitung für „Dennoch öffnen“](docs/downloads.md#deutsch).**
+Der Mac-Download unterstützt keine Intel-Macs.
 
 **[Zweisprachiges Regel-PDF — Englisch zuerst, Deutsch darunter](output/pdf/Mah-Jong-rules.pdf)**
 · [Regeln online lesen](RULES.md)

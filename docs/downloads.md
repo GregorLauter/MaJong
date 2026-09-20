@@ -17,6 +17,25 @@ For Apple Silicon Macs (M1, M2 and newer), running macOS 13 or later:
 
 This download is not an Intel Mac build.
 
+### If macOS says “Apple could not verify Mah Jong”
+
+This test build is not notarized by Apple. For the copy downloaded from
+[this project's GitHub release](https://github.com/GregorLauter/MaJong/releases),
+you can approve opening it:
+
+1. Click **Done** in the warning, rather than **Move to Trash**.
+2. Open **System Settings → Privacy & Security**.
+3. Scroll down to the message saying **Mah Jong** was blocked.
+4. Click **Open Anyway**.
+5. Authenticate if asked, then confirm **Open**.
+
+This allows this app to open; you do not need Terminal or to disable your Mac's
+security globally. Normally this is only needed the first time you open this copy.
+[Apple's instructions](https://support.apple.com/en-gb/102445)
+
+If **Open Anyway** is missing or a different warning appears, report the exact
+message and your macOS version.
+
 ## Windows
 
 For a 64-bit Windows PC:
@@ -46,9 +65,9 @@ one-click install package is not available yet.
 
 ## If your computer blocks the app
 
-These early builds do not yet have a verified publisher signature. macOS or
-Windows may display a security warning. If that happens, stop and share the
-exact message so we can work through the installation test together.
+For the Mac verification warning, follow the steps above. For a Windows warning
+or another startup problem, share the exact message and your operating system
+so we can help with that specific issue.
 
 ## Your first game
 
@@ -72,9 +91,26 @@ Release-Downloads benötigen kein GitHub-Konto.
   zusammenlassen und **Mah Jong** starten. Gebaut für Ubuntu 24.04; andere
   Distributionen sind noch nicht geprüft.
 
-Die Testpakete sind noch nicht mit einem verifizierten Herausgeber signiert.
-Bei einer Sicherheitswarnung oder Startproblemen bitte den genauen Meldungstext
-und dein Betriebssystem weitergeben. Es sind noch keine Ein-Klick-Installer.
+### Wenn macOS meldet, dass Apple „Mah Jong“ nicht überprüfen konnte
+
+Dieser Test-Build ist nicht von Apple notarisiert. Für die Kopie aus
+[unserem GitHub-Release](https://github.com/GregorLauter/MaJong/releases)
+kannst du das Öffnen erlauben:
+
+1. In der Warnung **Fertig** anklicken, statt die App in den Papierkorb zu bewegen.
+2. **Systemeinstellungen → Datenschutz & Sicherheit** öffnen.
+3. Nach unten zur Meldung scrollen, dass **Mah Jong** blockiert wurde.
+4. **Dennoch öffnen** anklicken (bei englischer Systemsprache: **Open Anyway**).
+5. Falls verlangt, authentifizieren und anschließend **Öffnen** bestätigen.
+
+Damit erlaubst du diese App. Du brauchst weder Terminalbefehle noch musst du die
+Sicherheit deines Macs generell abschalten. Normalerweise ist dieser Schritt nur
+beim ersten Öffnen dieser Kopie nötig.
+[Anleitung von Apple](https://support.apple.com/de-de/102445)
+
+Fehlt **Dennoch öffnen**, erscheint eine andere Warnung oder gibt es unter Windows
+Startprobleme, bitte den genauen Meldungstext und dein Betriebssystem weitergeben.
+Die Downloads sind portable Testpakete, noch keine Ein-Klick-Installer.
 
 Vier Namen eingeben, vier Handwerte eintragen, Gewinner auswählen und
 **Settle hand** anklicken. **Save game** speichert, **Open game** lädt den Spielstand.
