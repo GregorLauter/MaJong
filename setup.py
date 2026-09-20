@@ -9,6 +9,9 @@ from setuptools.command.build_py import build_py
 class BuildWithRules(build_py):
     def run(self):
         super().run()
+        # Editable installs read the canonical resources from the source tree.
+        if self.editable_mode:
+            return
         self.copy_file(
             "RULES.md", str(Path(self.build_lib) / "mahjong" / "RULES.md")
         )
