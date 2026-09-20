@@ -3,7 +3,6 @@
 [← Back to Mah Jong](../README.md)
 
 Download the file for your computer from the GitHub release linked in the README.
-Until that release is published, the prepared download links will not work.
 Public release downloads need no GitHub account. These are portable test bundles,
 not signed installers. Extract the downloaded archive before opening the app.
 
@@ -62,8 +61,7 @@ folder you can find again. Use **Open game** to continue later.
 
 ## Deutsch
 
-Lade das passende Paket über den Release-Link in der README herunter. Vor der
-Veröffentlichung funktionieren diese vorbereiteten Links noch nicht. Öffentliche
+Lade das passende Paket über den Release-Link in der README herunter. Öffentliche
 Release-Downloads benötigen kein GitHub-Konto.
 
 - **Mac (Apple Silicon, macOS 13+):** ZIP öffnen, **Mah Jong.app** nach

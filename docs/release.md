@@ -3,20 +3,26 @@
 **Publication of v0.1.0 was explicitly approved.** Calculator behavior is unchanged
 by release preparation. Future releases still require explicit approval.
 
-## Four release attachments
+## Published v0.1.0
 
-| Filename | Platform / content | Current preparation |
+[Download Mah Jong 0.1.0](https://github.com/GregorLauter/MaJong/releases/tag/v0.1.0).
+All three platform packages and the PDF were published from commit `d777c5e`.
+[Release build run](https://github.com/GregorLauter/MaJong/actions/runs/35539753731)
+and [test run](https://github.com/GregorLauter/MaJong/actions/runs/35539726667)
+completed successfully.
+
+| Release attachment | Platform / content | Verification |
 | --- | --- | --- |
-| `Mah-Jong-Windows-x64.zip` | Windows, Intel/AMD 64-bit | Configured in the existing Windows runner; not built locally |
-| `Mah-Jong-macOS-arm64.zip` | macOS 13+, Apple Silicon | Built locally; see `dist/release/` |
-| `Mah-Jong-Linux-x64.tar.gz` | Ubuntu 24.04, Intel/AMD 64-bit | Configured in the existing Linux runner; not built locally |
-| `Mah-Jong-rules.pdf` | Complete English/German rulebook | Copied unchanged to `dist/release/` |
+| `Mah-Jong-Windows-x64.zip` | Windows, Intel/AMD 64-bit | Built, tested and startup-checked on Windows |
+| `Mah-Jong-macOS-arm64.zip` | macOS 13+, Apple Silicon | Built, tested and startup-checked on macOS |
+| `Mah-Jong-Linux-x64.tar.gz` | Ubuntu 24.04, Intel/AMD 64-bit | Built, tested and startup-checked on Linux |
+| `Mah-Jong-rules.pdf` | Complete English/German rulebook | Published from the canonical export |
 
-The local Mac app is at `dist/release-build/Mah Jong.app`. The release ZIP is
-created with `ditto` to preserve its bundle permissions and links. Build outputs
-remain ignored by Git. The old `dist/MaJong.app` is not this release candidate.
+The published downloads are the GitHub-built files from the same revision.
+`dist/release/` holds the earlier locally verified Mac ZIP and PDF, not local
+copies of all published assets. Build outputs remain ignored by Git.
 
-## After explicit approval
+## Procedure for future approved releases
 
 1. Review and commit the intended source, documentation, canonical artwork,
    packaging files and `output/pdf/Mah-Jong-rules.pdf`. Do not include local game
@@ -31,15 +37,15 @@ remain ignored by Git. The old `dist/MaJong.app` is not this release candidate.
    Attach the inner platform archives and PDF, using the four filenames above.
    Prefer the Mac archive from this same workflow run so all platform candidates
    have the same recorded source revision.
-5. Prepare release **Mah Jong 0.1.0**, tag **v0.1.0**, targeting the tested revision.
-   Use [release-notes.md](release-notes.md) as the description. The version matches
-   the existing Python and Mac bundle metadata. Verify the tag is available.
+5. Choose a new version and tag targeting the tested revision; `v0.1.0` is already
+   published and must not be overwritten. Update version metadata and workflow
+   release commands consistently.
+   Update [release-notes.md](release-notes.md) for the new release.
 6. Keep the release as a draft until all four attachments are present and any
    requested review is complete. Publish only with explicit approval. No automatic
    push-triggered publication is enabled.
-7. Remove the README's two “being prepared” notices when publication is approved.
-   Verify all six language-specific app links resolve to the correct three files.
-   The README uses version-specific `v0.1.0` URLs, which also work for a prerelease.
+7. Update and verify all six language-specific README app links. Use the newly
+   approved version tag in the URLs.
 
 ## User-facing limitations
 
@@ -52,5 +58,5 @@ remain ignored by Git. The old `dist/MaJong.app` is not this release candidate.
 - The Mac bundle is ARM64 only; it does not support Intel Macs.
 - The Linux bundle targets Ubuntu 24.04 x64. Other distributions and desktops may
   require system libraries or different executable-launch handling.
-- Public release assets will not require a GitHub account; temporary Actions
-  artifacts do. Until publication, the prepared app download URLs will not work.
+- Public release assets do not require a GitHub account; temporary Actions
+  artifacts do.
