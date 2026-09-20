@@ -1,0 +1,68 @@
+name: Desktop packages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-14
+            label: macOS-arm64
+          - os: windows-latest
+            label: Windows-x64
+          - os: ubuntu-24.04
+            label: Linux-x64
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    env:
+      QT_QPA_PLATFORM: offscreen
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install Linux Qt libraries
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libegl1 libopengl0 libxkbcommon0 libxcb-cursor0
+      - name: Install uv
+        run: python -m pip install uv==0.9.26
+      - name: Install project
+        run: uv sync --locked --extra desktop --dev
+      - name: Test engine and desktop
+        run: uv run --locked --extra desktop pytest
+      - name: Build standalone app
+        run: uv run --locked --extra desktop pyinstaller --noconfirm packaging/majong.spec
+      - name: Smoke-test packaged app
+        shell: bash
+        run: |
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
+            dist/MaJong.app/Contents/MacOS/MaJong --smoke-test
+          elif [[ "$RUNNER_OS" == "Windows" ]]; then
+            dist/MaJong/MaJong.exe --smoke-test
+          else
+            dist/MaJong/MaJong --smoke-test
+          fi
+      - name: Archive macOS app preserving bundle permissions
+        if: runner.os == 'macOS'
+        run: ditto -c -k --sequesterRsrc --keepParent dist/MaJong.app dist/MaJong-macOS-arm64.zip
+      - name: Archive Linux app preserving executable permissions
+        if: runner.os == 'Linux'
+        run: tar -czf dist/MaJong-Linux-x64.tar.gz -C dist MaJong
+      - name: Archive Windows app
+        if: runner.os == 'Windows'
+        run: Compress-Archive -Path dist/MaJong -DestinationPath dist/MaJong-Windows-x64.zip
+      - uses: actions/upload-artifact@v7
+        with:
+          name: MaJong-${{ matrix.label }}
+          path: |
+            dist/MaJong-*.zip
+            dist/MaJong-*.tar.gz
+          if-no-files-found: error

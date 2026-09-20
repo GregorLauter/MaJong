@@ -1,0 +1,12 @@
+include SPEC.md
+include majong.py
+include justfile
+include uv.lock
+include .gitignore
+include .gitattributes
+recursive-include tests *.py
+recursive-include docs *.md
+recursive-include .github *.yaml
+include THIRD_PARTY_NOTICES.md
+recursive-include packaging *.py *.spec *.icns *.ico
+recursive-include src/mahjong/assets *.svg
