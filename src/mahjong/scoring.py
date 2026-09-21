@@ -180,7 +180,7 @@ def score_hand(
     if winner and (
         len(hand.melds) != 4 or hand.pair is None or hand.loose_tiles
     ):
-        raise ValueError("Mah Jong requires four melds plus one pair.")
+        raise ValueError("MahJong requires four melds plus one pair.")
     base = 0
     doubles = 0
     for meld in hand.melds:

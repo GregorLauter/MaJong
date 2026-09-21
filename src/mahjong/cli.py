@@ -62,7 +62,7 @@ def show_scores(label: str, scores: dict[str, int]) -> None:
 
 
 def main() -> None:
-    print("MAH JONG · SCORE CALCULATOR")
+    print("MahJong · SCORE CALCULATOR")
     print(
         "Press Ctrl-C or Ctrl-D to finish. Only completed rounds are counted."
     )

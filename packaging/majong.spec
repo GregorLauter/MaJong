@@ -21,15 +21,15 @@ a = Analysis(
 )
 pyz = PYZ(a.pure)
 exe = EXE(
-    pyz, a.scripts, [], exclude_binaries=True, name="Mah Jong",
+    pyz, a.scripts, [], exclude_binaries=True, name="MahJong",
     console=False, icon=str(icon),
 )
-collection = COLLECT(exe, a.binaries, a.datas, name="Mah Jong")
+collection = COLLECT(exe, a.binaries, a.datas, name="MahJong")
 if sys.platform == "darwin":
     app = BUNDLE(
-        collection, name="Mah Jong.app", icon=str(icon),
+        collection, name="MahJong.app", icon=str(icon),
         bundle_identifier="io.github.gregorlauter.majong",
         info_plist={"CFBundleShortVersionString": "0.1.0",
-                    "CFBundleDisplayName": "Mah Jong",
+                    "CFBundleDisplayName": "MahJong",
                     "NSHighResolutionCapable": True},
     )

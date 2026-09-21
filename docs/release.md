@@ -1,14 +1,14 @@
-# Mah Jong 0.1.0 release preparation
+# MahJong 0.1.0 release preparation
 
 **Publication of v0.1.0 was explicitly approved.** Calculator behavior is unchanged
 by release preparation. Future releases still require explicit approval.
 
 ## Published v0.1.0
 
-[Download Mah Jong 0.1.0](https://github.com/GregorLauter/MaJong/releases/tag/v0.1.0).
+[Download MahJong 0.1.0](https://github.com/GregorLauter/MahJong/releases/tag/v0.1.0).
 All three platform packages and the PDF were published from commit `d777c5e`.
-[Release build run](https://github.com/GregorLauter/MaJong/actions/runs/35539753731)
-and [test run](https://github.com/GregorLauter/MaJong/actions/runs/35539726667)
+[Release build run](https://github.com/GregorLauter/MahJong/actions/runs/35539753731)
+and [test run](https://github.com/GregorLauter/MahJong/actions/runs/35539726667)
 completed successfully.
 
 | Release attachment | Platform / content | Verification |
@@ -27,7 +27,7 @@ copies of all published assets. Build outputs remain ignored by Git.
 1. Review and commit the intended source, documentation, canonical artwork,
    packaging files and `output/pdf/Mah-Jong-rules.pdf`. Do not include local game
    saves, old PDF drafts, original combined artwork or personal documents.
-2. Push that reviewed version to the separate `GregorLauter/MaJong` repository.
+2. Push that reviewed version to the separate `GregorLauter/MahJong` repository.
 3. Run **Desktop packages** against that exact revision. The three platform jobs
    test, build and smoke-test the apps. The rulebook job uploads the existing PDF.
    The default run only uploads temporary artifacts. After explicit approval,

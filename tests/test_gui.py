@@ -69,7 +69,7 @@ class GuiTests(unittest.TestCase):
 
     def test_setup_validation_and_reference(self):
         self.assertEqual(
-            self.window.windowTitle(), "Mah Jong · The scorekeeper"
+            self.window.windowTitle(), "MahJong · The scorekeeper"
         )
         self.assertFalse(self.window.banner.pixmap().isNull())
         QTest.mouseClick(self.window.start_button, Qt.MouseButton.LeftButton)

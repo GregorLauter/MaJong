@@ -48,8 +48,8 @@ def main() -> None:
     writer = QPdfWriter(str(OUTPUT))
     writer.setResolution(72)
     writer.setPageSize(QPageSize(QPageSize.PageSizeId.A4))
-    writer.setTitle("Mah Jong - Rules / Regeln")
-    writer.setCreator("Mah Jong rulebook export from RULES.md")
+    writer.setTitle("MahJong - Rules / Regeln")
+    writer.setCreator("MahJong rulebook export from RULES.md")
     width, height = writer.width(), writer.height()
     margin = 38
     content_width = width - 2 * margin
@@ -98,7 +98,7 @@ def main() -> None:
             writer.newPage()
         painter.setPen(QColor("#526659"))
         painter.setFont(QFont("Arial", 9))
-        painter.drawText(margin, 18, f"Mah Jong  |  {language}")
+        painter.drawText(margin, 18, f"MahJong  |  {language}")
         painter.drawText(
             QRectF(margin, height - 23, content_width, 18),
             Qt.AlignmentFlag.AlignRight,

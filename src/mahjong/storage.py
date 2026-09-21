@@ -38,14 +38,14 @@ def load_game(path: Path) -> MahjongGame:
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, UnicodeError) as error:
-        raise ValueError("This is not a valid Mah Jong game file.") from error
+        raise ValueError("This is not a valid MahJong game file.") from error
     if (
         not isinstance(payload, dict)
         or payload.get("format") != "majong-game"
         or type(payload.get("version")) is not int
         or payload["version"] not in (1, 2)
     ):
-        raise ValueError("Unsupported Mah Jong game file format or version.")
+        raise ValueError("Unsupported MahJong game file format or version.")
     players = payload.get("players")
     rounds = payload.get("rounds")
     if not isinstance(players, list) or not isinstance(rounds, list):

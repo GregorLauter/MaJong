@@ -49,21 +49,21 @@ jobs:
         shell: bash
         run: |
           if [[ "$RUNNER_OS" == "macOS" ]]; then
-            "dist/Mah Jong.app/Contents/MacOS/Mah Jong" --smoke-test
+            "dist/MahJong.app/Contents/MacOS/MahJong" --smoke-test
           elif [[ "$RUNNER_OS" == "Windows" ]]; then
-            "dist/Mah Jong/Mah Jong.exe" --smoke-test
+            "dist/MahJong/MahJong.exe" --smoke-test
           else
-            "dist/Mah Jong/Mah Jong" --smoke-test
+            "dist/MahJong/MahJong" --smoke-test
           fi
       - name: Archive macOS app preserving bundle permissions
         if: runner.os == 'macOS'
-        run: ditto -c -k --sequesterRsrc --keepParent "dist/Mah Jong.app" dist/Mah-Jong-macOS-arm64.zip
+        run: ditto -c -k --sequesterRsrc --keepParent "dist/MahJong.app" dist/Mah-Jong-macOS-arm64.zip
       - name: Archive Linux app preserving executable permissions
         if: runner.os == 'Linux'
-        run: tar -czf dist/Mah-Jong-Linux-x64.tar.gz -C dist "Mah Jong"
+        run: tar -czf dist/Mah-Jong-Linux-x64.tar.gz -C dist "MahJong"
       - name: Archive Windows app
         if: runner.os == 'Windows'
-        run: Compress-Archive -Path "dist/Mah Jong" -DestinationPath dist/Mah-Jong-Windows-x64.zip
+        run: Compress-Archive -Path "dist/MahJong" -DestinationPath dist/Mah-Jong-Windows-x64.zip
       - uses: actions/upload-artifact@v7
         with:
           name: Mah-Jong-${{ matrix.label }}
@@ -113,6 +113,6 @@ jobs:
           )
           for asset in "${assets[@]}"; do test -s "$asset"; done
           gh release create v0.1.0 "${assets[@]}" \
-            --target "$GITHUB_SHA" --title "Mah Jong 0.1.0" \
+            --target "$GITHUB_SHA" --title "MahJong 0.1.0" \
             --notes-file docs/release-notes.md --draft
           gh release edit v0.1.0 --draft=false --latest

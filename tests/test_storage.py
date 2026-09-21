@@ -39,7 +39,7 @@ class StorageTests(unittest.TestCase):
     def test_invalid_json_and_encoding(self):
         for data in (b"{", b"\xff"):
             self.path.write_bytes(data)
-            with self.assertRaisesRegex(ValueError, "valid Mah Jong"):
+            with self.assertRaisesRegex(ValueError, "valid MahJong"):
                 load_game(self.path)
 
     def test_invalid_schema(self):

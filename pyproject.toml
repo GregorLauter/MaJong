@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "majong-calculator"
 version = "0.1.0"
-description = "Mah Jong: offline score calculator and settlement tracker."
+description = "MahJong: offline score calculator and settlement tracker."
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = []

@@ -69,7 +69,7 @@ If Git has not yet been initialized, run locally:
 ```sh
 git init -b main
 git add .gitignore .gitattributes .github README.md SPEC.md docs pyproject.toml uv.lock justfile MANIFEST.in src tests majong.py
-git commit -m "Set up Mah Jong calculator with tests and CI"
+git commit -m "Set up MahJong calculator with tests and CI"
 ```
 
 Choose the repository name and whether it should be public or private. Create
@@ -98,7 +98,7 @@ setup deliberately does not assign one on your behalf.
 - Use `main`, matching this machine's Git default. The branch name does not affect
   the application or its tests.
 
-The pre-existing travel DOCX and older Mah Jong cheat-sheet PDF stay on disk but
+The pre-existing travel DOCX and older MahJong cheat-sheet PDF stay on disk but
 are excluded from Git. The PDF describes different scoring conventions and is
 not the rules reference for this calculator.
 

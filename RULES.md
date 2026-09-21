@@ -1,10 +1,10 @@
-# Mah Jong Rules
+# MahJong Rules
 
 **English version below. Deutsche Version weiter unten.**
 
 ## 1. Scope
 
-This document defines the gameplay and hand-scoring rules used by the Mah Jong project. These project rules are the source of truth and must not be silently replaced by rules from another Mah Jong variant. `SPEC.md` separately defines the application's settlement and implementation requirements.
+This document defines the gameplay and hand-scoring rules used by the MahJong project. These project rules are the source of truth and must not be silently replaced by rules from another MahJong variant. `SPEC.md` separately defines the application's settlement and implementation requirements.
 
 ## 2. Tiles
 
@@ -117,7 +117,7 @@ A normal resting hand has 13 effective tiles. Flowers and Seasons do not count t
 
 ## 11. Winning Structure
 
-Mah Jong always requires four melds plus one pair. There are no alternative winning structures such as seven pairs or thirteen orphans.
+MahJong always requires four melds plus one pair. There are no alternative winning structures such as seven pairs or thirteen orphans.
 
 A Chow is three consecutive numbered tiles of the same suit.
 A Pung is three identical tiles.
@@ -137,16 +137,16 @@ Any player may claim a discard that completes a Pung. The Pung is exposed. Play 
 ### Kong
 Any player holding the other three identical tiles may claim the fourth discard for a Kong. The Kong is exposed and the player takes a replacement from the dead wall.
 
-### Mah Jong
-A player may claim a discard that completes Mah Jong. The round ends immediately.
+### MahJong
+A player may claim a discard that completes MahJong. The round ends immediately.
 
 Priority is:
 
-**Mah Jong > Pung/Kong > Chow**
+**MahJong > Pung/Kong > Chow**
 
 A competing Pung and Kong claim for the same tile is physically impossible because only four copies exist.
 
-If two players can both Mah Jong from the same discard, whoever calls/shouts "Mah Jong" first wins the tile and the round.
+If two players can both MahJong from the same discard, whoever calls/shouts "MahJong" first wins the tile and the round.
 
 ## 13. Concealed Melds
 
@@ -230,17 +230,17 @@ In addition, a Flower or Season whose number matches the player's current seat W
 
 Each matching bonus tile is evaluated separately. Thus the matching Flower and matching Season together give two doubles.
 
-## 21. Mah Jong Points
+## 21. MahJong Points
 
-A winner receives +20 base points for Mah Jong.
+A winner receives +20 base points for MahJong.
 
 ### Zero-additional-points bonus
-If the winning hand has literally 0 other base points before the +20 Mah Jong award, add +2 base points.
+If the winning hand has literally 0 other base points before the +20 MahJong award, add +2 base points.
 
 Thus four zero-point Chows plus a zero-point pair produce:
 - ordinary base points = 0
 - bonus = 2
-- Mah Jong = 20
+- MahJong = 20
 - base score = 22
 
 Any other base points, including a 2-point pair or a 4-point Flower/Season, prevent this +2 bonus.
@@ -293,7 +293,7 @@ That is four doubles, so the hand's complete base score is multiplied by 16. The
 ## 24. No Other Bonuses
 
 There are no extra points or doubles merely for:
-- self-drawing Mah Jong
+- self-drawing MahJong
 - winning from a discard
 - a fully concealed winning hand
 - winning on the last available tile
@@ -301,14 +301,14 @@ There are no extra points or doubles merely for:
 - all Pungs
 - one suit / pure or mixed suit
 - all terminals/honours
-- other whole-hand patterns from other Mah Jong variants
+- other whole-hand patterns from other MahJong variants
 
 Only explicitly defined bonuses apply.
 
 ## 25. Losing Hands
 
 Losing hands use the same component base values and doubles, but receive neither:
-- the +20 Mah Jong award
+- the +20 MahJong award
 - the winner's +2 zero-additional-points bonus
 
 Completed scoring Pungs, Kongs, Flowers, Seasons and a qualifying scoring pair count normally. Loose or incomplete combinations do not score.
@@ -317,7 +317,7 @@ Completed scoring Pungs, Kongs, Flowers, Seasons and a qualifying scoring pair c
 
 ## 26. Successful Round
 
-A successful round ends immediately when a player declares Mah Jong, either from a self-drawn tile or a claimed discard. There is no scoring difference between these two methods.
+A successful round ends immediately when a player declares MahJong, either from a self-drawn tile or a claimed discard. There is no scoring difference between these two methods.
 
 All four hands are valued, then the resulting hand values are settled.
 
@@ -389,9 +389,9 @@ East's x2 applies only to payments between players after hand values have been c
 
 ## 32. Source of Truth
 
-These rules were established specifically for the Mah Jong project.
+These rules were established specifically for the MahJong project.
 
-Do not substitute rules from Japanese Riichi, Hong Kong Mah Jong, Mah Jong Competition Rules or another variant. Do not invent special hands or bonuses. If an implementation-relevant ambiguity remains, ask rather than infer an external rule.
+Do not substitute rules from Japanese Riichi, Hong Kong MahJong, MahJong Competition Rules or another variant. Do not invent special hands or bonuses. If an implementation-relevant ambiguity remains, ask rather than infer an external rule.
 
 `RULES.md` defines gameplay and hand scoring.
 
@@ -403,7 +403,7 @@ Do not substitute rules from Japanese Riichi, Hong Kong Mah Jong, Mah Jong Compe
 
 ## 1. Geltungsbereich
 
-Dieses Dokument definiert die Spiel- und Wertungsregeln des Mah Jong-Projekts. Diese projektspezifischen Regeln sind maßgeblich und dürfen nicht stillschweigend durch Regeln einer anderen Mah Jong-Variante ersetzt werden. `SPEC.md` definiert separat die Anforderungen an die Abrechnung und Implementierung der Anwendung.
+Dieses Dokument definiert die Spiel- und Wertungsregeln des MahJong-Projekts. Diese projektspezifischen Regeln sind maßgeblich und dürfen nicht stillschweigend durch Regeln einer anderen MahJong-Variante ersetzt werden. `SPEC.md` definiert separat die Anforderungen an die Abrechnung und Implementierung der Anwendung.
 
 ## 2. Spielsteine
 
@@ -528,7 +528,7 @@ Ein deklarierter Kong zählt als ein Meld, da der vierte physische Stein durch e
 
 ## 11. Struktur einer Gewinnhand
 
-Mah Jong besteht immer aus vier Melds und einem Paar.
+MahJong besteht immer aus vier Melds und einem Paar.
 
 Alternative Gewinnstrukturen wie sieben Paare oder dreizehn Waisen gibt es in diesen Regeln nicht.
 
@@ -557,16 +557,16 @@ Jeder Spieler darf einen Abwurf beanspruchen, wenn dieser einen Pung vervollstä
 ### Kong
 Jeder Spieler, der die anderen drei identischen Steine besitzt, darf den vierten abgeworfenen Stein für einen Kong beanspruchen. Der Kong wird offen ausgelegt und der Spieler zieht einen Ersatzstein vom toten Ende.
 
-### Mah Jong
-Ein Spieler darf einen Abwurf beanspruchen, wenn dieser seine Mah Jong-Hand vervollständigt. Die Hand endet sofort.
+### MahJong
+Ein Spieler darf einen Abwurf beanspruchen, wenn dieser seine MahJong-Hand vervollständigt. Die Hand endet sofort.
 
 Die Priorität lautet:
 
-**Mah Jong > Pung/Kong > Chow**
+**MahJong > Pung/Kong > Chow**
 
 Eine konkurrierende Pung- und Kong-Beanspruchung desselben Steins ist physisch nicht möglich, da von jedem normalen Stein nur vier Exemplare existieren.
 
-Könnten zwei Spieler mit demselben Abwurf Mah Jong erreichen, gewinnt derjenige den Stein und die Hand, der zuerst "Mah Jong" ruft.
+Könnten zwei Spieler mit demselben Abwurf MahJong erreichen, gewinnt derjenige den Stein und die Hand, der zuerst "MahJong" ruft.
 
 ## 13. Verdeckte Melds
 
@@ -652,14 +652,14 @@ Zusätzlich gibt eine Blume oder Jahreszeit, deren Nummer dem aktuellen Sitzwind
 
 Jeder passende Bonusstein wird einzeln gewertet. Eine passende Blume und eine passende Jahreszeit ergeben daher zusammen zwei Verdopplungen.
 
-## 21. Mah Jong-Punkte
+## 21. MahJong-Punkte
 
-Der Gewinner erhält für Mah Jong:
+Der Gewinner erhält für MahJong:
 
 **+20 Grundpunkte**
 
 ### Bonus für null zusätzliche Grundpunkte
-Hat die Gewinnhand vor den +20 Mah Jong-Punkten tatsächlich 0 andere Grundpunkte, erhält der Gewinner zusätzlich:
+Hat die Gewinnhand vor den +20 MahJong-Punkten tatsächlich 0 andere Grundpunkte, erhält der Gewinner zusätzlich:
 
 **+2 Grundpunkte**
 
@@ -667,7 +667,7 @@ Vier Chows mit jeweils 0 Punkten und ein Paar mit 0 Punkten ergeben daher:
 
 - normale Grundpunkte = 0
 - Bonus = 2
-- Mah Jong = 20
+- MahJong = 20
 - Grundwert = 22
 
 Sobald andere Grundpunkte vorhanden sind, etwa durch ein 2-Punkte-Paar oder eine Blume/Jahreszeit mit 4 Punkten, entfällt der +2-Bonus.
@@ -724,15 +724,15 @@ Der Grundpunktwert des Kongs selbst wird separat danach berechnet, ob der Kong o
 
 Es gibt keine zusätzlichen Punkte oder Verdopplungen allein für:
 
-- selbst gezogenes Mah Jong
-- Mah Jong durch einen Abwurf
+- selbst gezogenes MahJong
+- MahJong durch einen Abwurf
 - eine vollständig verdeckte Gewinnhand
 - Gewinn mit dem letzten verfügbaren Stein
 - Gewinn mit einem Ersatzstein
 - eine Hand nur aus Pungs
 - reine oder gemischte Einfarbenhände
 - Hände nur aus Randsteinen/Ehrensteinen
-- andere vollständige Handmuster aus anderen Mah Jong-Varianten
+- andere vollständige Handmuster aus anderen MahJong-Varianten
 
 Es gelten ausschließlich die ausdrücklich in diesem Dokument definierten Boni.
 
@@ -740,7 +740,7 @@ Es gelten ausschließlich die ausdrücklich in diesem Dokument definierten Boni.
 
 Die Hände der Verlierer verwenden dieselben Grundwerte und Verdopplungen für ihre wertbaren Bestandteile, erhalten jedoch weder:
 
-- die +20 Punkte für Mah Jong
+- die +20 Punkte für MahJong
 - noch den +2-Bonus für eine Gewinnhand ohne weitere Grundpunkte
 
 Vollständige wertbare Pungs, Kongs, Blumen, Jahreszeiten und ein qualifizierendes Wertungspaar zählen normal.
@@ -751,7 +751,7 @@ Lose Steine oder unvollständige Kombinationen zählen nicht.
 
 ## 26. Erfolgreiche Hand
 
-Eine erfolgreiche Hand endet sofort, sobald ein Spieler Mah Jong erklärt, entweder mit einem selbst gezogenen Stein oder mit einem beanspruchten Abwurf.
+Eine erfolgreiche Hand endet sofort, sobald ein Spieler MahJong erklärt, entweder mit einem selbst gezogenen Stein oder mit einem beanspruchten Abwurf.
 
 Zwischen diesen beiden Gewinnarten gibt es keinen Wertungsunterschied.
 
@@ -833,9 +833,9 @@ Der Faktor x2 für Ost wird erst auf Zahlungen zwischen Spielern angewendet, nac
 
 ## 32. Maßgebliche Regeln
 
-Diese Regeln wurden speziell für das Mah Jong-Projekt festgelegt.
+Diese Regeln wurden speziell für das MahJong-Projekt festgelegt.
 
-Regeln aus japanischem Riichi-Mah Jong, Hongkong-Mah Jong, Mah Jong Competition Rules oder anderen Varianten dürfen nicht ersatzweise übernommen werden. Es dürfen keine zusätzlichen Spezialhände oder Boni erfunden werden.
+Regeln aus japanischem Riichi-MahJong, Hongkong-MahJong, MahJong Competition Rules oder anderen Varianten dürfen nicht ersatzweise übernommen werden. Es dürfen keine zusätzlichen Spezialhände oder Boni erfunden werden.
 
 Bleibt eine für die Implementierung relevante Regel unklar, muss nachgefragt werden, statt eine externe Regel anzunehmen.
 

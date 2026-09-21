@@ -1,6 +1,6 @@
-# Open your Mah Jong download
+# Open your MahJong download
 
-[← Back to Mah Jong](../README.md)
+[← Back to MahJong](../README.md)
 
 Download the file for your computer from the GitHub release linked in the README.
 Public release downloads need no GitHub account. These are portable test bundles,
@@ -20,7 +20,7 @@ This download is not an Intel Mac build.
 ### If macOS says “Apple could not verify Mah Jong”
 
 This test build is not notarized by Apple. For the copy downloaded from
-[this project's GitHub release](https://github.com/GregorLauter/MaJong/releases),
+[this project's GitHub release](https://github.com/GregorLauter/MahJong/releases),
 you can approve opening it:
 
 1. Click **Done** in the warning, rather than **Move to Trash**.
@@ -94,7 +94,7 @@ Release-Downloads benötigen kein GitHub-Konto.
 ### Wenn macOS meldet, dass Apple „Mah Jong“ nicht überprüfen konnte
 
 Dieser Test-Build ist nicht von Apple notarisiert. Für die Kopie aus
-[unserem GitHub-Release](https://github.com/GregorLauter/MaJong/releases)
+[unserem GitHub-Release](https://github.com/GregorLauter/MahJong/releases)
 kannst du das Öffnen erlauben:
 
 1. In der Warnung **Fertig** anklicken, statt die App in den Papierkorb zu bewegen.

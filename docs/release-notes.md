@@ -1,4 +1,4 @@
-# Mah Jong 0.1.0 — desktop test version
+# MahJong 0.1.0 — desktop test version
 
 Offline score calculation and settlement tracking for four players. Enter hand
 values, select the winner, and keep totals, East/seat Winds and hand history.

@@ -1,6 +1,6 @@
 # Desktop application
 
-Mah Jong is a local, offline application. It needs no browser, server, login, or
+MahJong is a local, offline application. It needs no browser, server, login, or
 connection to another project. Settlement runs through `mahjong.engine`; structured hand scoring lives
 separately in `mahjong.scoring`. The GUI currently accepts final hand values.
 
@@ -59,9 +59,9 @@ The output contains Python and Qt, so the receiving laptop does not need Python:
 
 | Build system | Output | How to use |
 | --- | --- | --- |
-| macOS | `dist/Mah Jong.app` | Double-click; optionally drag to Applications yourself. |
-| Windows | `dist/Mah Jong/Mah Jong.exe` | Keep the entire Mah Jong folder together; open the executable. |
-| Linux | `dist/Mah Jong/Mah Jong` | Keep the entire Mah Jong folder together; run the executable. |
+| macOS | `dist/MahJong.app` | Double-click; optionally drag to Applications yourself. |
+| Windows | `dist/MahJong/MahJong.exe` | Keep the entire MahJong folder together; open the executable. |
+| Linux | `dist/MahJong/MahJong` | Keep the entire MahJong folder together; run the executable. |
 
 Build on the OS and architecture you intend to distribute to. A Mac build is
 not a Windows executable. The GitHub **Desktop packages** workflow builds
@@ -87,4 +87,4 @@ included in the bundles.
   this project's `.venv`.
 - No global Python packages or system-wide application installation are needed.
 - Existing personal documents and saved `*.majong.json` games are ignored by Git.
-- GitHub publishing targets only the separate `GregorLauter/MaJong` repository.
+- GitHub publishing targets only the separate `GregorLauter/MahJong` repository.

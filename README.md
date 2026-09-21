@@ -1,25 +1,25 @@
-<p align="center"><img src="assets/mah_jong_banner.png" width="580" alt="Mah Jong banner"></p>
+<p align="center"><img src="assets/mah_jong_banner.png" width="580" alt="MahJong banner"></p>
 
-# Mah Jong
+# MahJong
 
 An offline score calculator and settlement tracker for four players, using our
-traditional Chinese Mah Jong rules. Enter hand values; the app keeps the totals.
+traditional Chinese MahJong rules. Enter hand values; the app keeps the totals.
 
 **[Deutsch weiter unten ↓](#deutsch)**
 
-## Download Mah Jong
+## Download MahJong
 
 **Version 0.1.0 · Desktop test release**
 
 | Your computer | Download |
 | --- | --- |
-| Windows · 64-bit Intel/AMD | [Download for Windows](https://github.com/GregorLauter/MaJong/releases/download/v0.1.0/Mah-Jong-Windows-x64.zip) |
-| macOS 13+ · Apple Silicon (M1 or newer) | [Download for Mac](https://github.com/GregorLauter/MaJong/releases/download/v0.1.0/Mah-Jong-macOS-arm64.zip) |
-| Linux · 64-bit Intel/AMD · Ubuntu 24.04 build | [Download for Linux](https://github.com/GregorLauter/MaJong/releases/download/v0.1.0/Mah-Jong-Linux-x64.tar.gz) |
+| Windows · 64-bit Intel/AMD | [Download for Windows](https://github.com/GregorLauter/MahJong/releases/download/v0.1.0/Mah-Jong-Windows-x64.zip) |
+| macOS 13+ · Apple Silicon (M1 or newer) | [Download for Mac](https://github.com/GregorLauter/MahJong/releases/download/v0.1.0/Mah-Jong-macOS-arm64.zip) |
+| Linux · 64-bit Intel/AMD · Ubuntu 24.04 build | [Download for Linux](https://github.com/GregorLauter/MahJong/releases/download/v0.1.0/Mah-Jong-Linux-x64.tar.gz) |
 
-Download, extract the archive, then open **Mah Jong**. No Python or terminal is
+Download, extract the archive, then open **Mah Jong** (the name in version 0.1.0). No Python or terminal is
 needed for the Windows/Mac bundles. Linux compatibility depends on your system.
-[Opening instructions](docs/downloads.md) · [All releases](https://github.com/GregorLauter/MaJong/releases)
+[Opening instructions](docs/downloads.md) · [All releases](https://github.com/GregorLauter/MahJong/releases)
 
 These are test app bundles, not signed installers. macOS/Windows may block or
 warn about the unverified publisher. **Mac blocked? Follow the
@@ -68,24 +68,24 @@ requirements; [RULES.md](RULES.md) defines our bilingual rulebook.
 
 ## Deutsch
 
-Mah Jong ist ein Offline-Punkterechner und Abrechnungshelfer für vier Spieler
-nach unseren traditionellen chinesischen Mah Jong-Regeln. Handwerte eingeben;
+MahJong ist ein Offline-Punkterechner und Abrechnungshelfer für vier Spieler
+nach unseren traditionellen chinesischen MahJong-Regeln. Handwerte eingeben;
 die App führt die Gesamtstände.
 
-### Mah Jong herunterladen
+### MahJong herunterladen
 
 **Version 0.1.0 · Desktop-Testversion**
 
 | Dein Computer | Download |
 | --- | --- |
-| Windows · 64-Bit Intel/AMD | [Für Windows herunterladen](https://github.com/GregorLauter/MaJong/releases/download/v0.1.0/Mah-Jong-Windows-x64.zip) |
-| macOS 13+ · Apple Silicon (M1 oder neuer) | [Für Mac herunterladen](https://github.com/GregorLauter/MaJong/releases/download/v0.1.0/Mah-Jong-macOS-arm64.zip) |
-| Linux · 64-Bit Intel/AMD · Ubuntu-24.04-Build | [Für Linux herunterladen](https://github.com/GregorLauter/MaJong/releases/download/v0.1.0/Mah-Jong-Linux-x64.tar.gz) |
+| Windows · 64-Bit Intel/AMD | [Für Windows herunterladen](https://github.com/GregorLauter/MahJong/releases/download/v0.1.0/Mah-Jong-Windows-x64.zip) |
+| macOS 13+ · Apple Silicon (M1 oder neuer) | [Für Mac herunterladen](https://github.com/GregorLauter/MahJong/releases/download/v0.1.0/Mah-Jong-macOS-arm64.zip) |
+| Linux · 64-Bit Intel/AMD · Ubuntu-24.04-Build | [Für Linux herunterladen](https://github.com/GregorLauter/MahJong/releases/download/v0.1.0/Mah-Jong-Linux-x64.tar.gz) |
 
-Herunterladen, Archiv entpacken und **Mah Jong** öffnen. Die Windows-/Mac-Pakete
+Herunterladen, Archiv entpacken und **Mah Jong** öffnen (Name in Version 0.1.0). Die Windows-/Mac-Pakete
 benötigen weder Python noch Terminalkenntnisse. Unter Linux hängt die
 Kompatibilität vom System ab. [Anleitung](docs/downloads.md#deutsch)
-· [Alle Releases](https://github.com/GregorLauter/MaJong/releases)
+· [Alle Releases](https://github.com/GregorLauter/MahJong/releases)
 
 Dies sind Testpakete, keine signierten Installer. macOS/Windows können wegen des
 ungeprüften Herausgebers warnen oder das Öffnen blockieren. **Mac blockiert?

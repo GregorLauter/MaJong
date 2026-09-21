@@ -102,7 +102,7 @@ class MahjongWindow(QMainWindow):
         self.game: MahjongGame | None = None
         self.save_path: Path | None = None
         self.dirty = False
-        self.setWindowTitle("Mah Jong · The scorekeeper")
+        self.setWindowTitle("MahJong · The scorekeeper")
         self.resize(1120, 800)
         self.setMinimumSize(880, 680)
         self.setStyleSheet(STYLE)
@@ -120,7 +120,7 @@ class MahjongWindow(QMainWindow):
         side.setContentsMargins(26, 34, 26, 28)
         side.setSpacing(15)
         self.banner = QLabel()
-        self.banner.setAccessibleName("Mah Jong banner")
+        self.banner.setAccessibleName("MahJong banner")
         self.banner.setPixmap(
             QPixmap(str(asset_path("mah_jong_banner.png"))).scaled(
                 174,
@@ -130,7 +130,7 @@ class MahjongWindow(QMainWindow):
             )
         )
         side.addWidget(self.banner)
-        side.addWidget(label("Mah Jong", "brand"))
+        side.addWidget(label("MahJong", "brand"))
         side.addWidget(label("THE SCOREKEEPER", "eyebrow"))
         side.addSpacing(35)
         side.addWidget(button("＋  New game", self.new_game, "side"))
@@ -534,9 +534,9 @@ class MahjongWindow(QMainWindow):
             return False
         filename, _ = QFileDialog.getSaveFileName(
             self,
-            "Save Mah Jong game",
+            "Save MahJong game",
             str(self.save_path or "My game.majong.json"),
-            "Mah Jong game (*.json)",
+            "MahJong game (*.json)",
         )
         if not filename:
             return False
@@ -581,7 +581,7 @@ class MahjongWindow(QMainWindow):
 
     def open_game(self):
         filename, _ = QFileDialog.getOpenFileName(
-            self, "Open Mah Jong game", "", "Mah Jong game (*.json)"
+            self, "Open MahJong game", "", "MahJong game (*.json)"
         )
         if not filename:
             return
@@ -610,8 +610,8 @@ class MahjongWindow(QMainWindow):
 def main() -> int:
     app = cast(QApplication, QApplication.instance() or QApplication(sys.argv))
     app.setWindowIcon(QIcon(str(asset_path("mah_jong_icon.png"))))
-    app.setApplicationName("Mah Jong")
-    app.setOrganizationName("Mah Jong")
+    app.setApplicationName("MahJong")
+    app.setOrganizationName("MahJong")
     app.setFont(QFont("Arial", 13))
     window = MahjongWindow()
     window.show()
